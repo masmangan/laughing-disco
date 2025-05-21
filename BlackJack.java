@@ -61,12 +61,12 @@ public class BlackJack
         return v;
     }
 
-    public static void status(int[] c, int h1, int h2, int h3) {
+    public static void status(int[] c, int[] h) {
         int sc = value(c[0]) + value(c[1]) + value(c[2]);
-        int sh = value(h1) + value(h2) + value(h3);
+        int sh = value(h[0]) + value(h[1]) + value(h[2]);
         
         System.out.printf("Cartas do computador: %s, %s, %s (%d)%n", face(c[0]), face(c[1]), face(c[2]), sc );  // mostra a carta
-        System.out.printf("   Cartas do jogador: %s, %s, %s (%d)%n", face(h1), face(h2), face(h3), sh );
+        System.out.printf("   Cartas do jogador: %s, %s, %s (%d)%n", face(h[0]), face(h[1]), face(h[2]), sh );
 
         if (sh > 21) {
             System.out.printf("Voce perdeu! Tente de novo! (Acima de 21!)");
@@ -85,9 +85,8 @@ public class BlackJack
     {
         Random r;           // gerador de numeros aleatorios
 
-        //int c1, c2, c3;     // cartas do computador
         int[] c = new int[3];
-        int h1, h2, h3;     // cartas do humano
+        int[] h = new int[3];
 
         r = new Random();   // cria uma gerador de numeros
 
@@ -96,18 +95,18 @@ public class BlackJack
         // TODO: criar um valor inicial, atribuir valor para vitoria, perda e empate
 
         c[0] = getCard(r);  
-        h1 = getCard(r);
+        h[0] = getCard(r);
         
         c[1] = getCard(r);  
-        h2 = getCard(r);        
+        h[1] = getCard(r);        
         // TODO: detectar Blackjack com duas cartas!
 
         // TODO: mostrar as cartas de cada jogador, apenas a primeira do computador
         
         // TODO: tornar a terceira carta opcional
         c[2] = getCard(r);  
-        h3 = getCard(r);        
+        h[2] = getCard(r);        
             
-        status(c, h1, h2, h3);
+        status(c, h);
     }
 }
