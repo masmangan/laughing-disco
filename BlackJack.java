@@ -61,26 +61,36 @@ public class BlackJack
         return v;
     }
 
-    public static void status(int[] c, int[] h) {
+    public static double status(int[] c, int[] h) {
+        double result;
         int sc = value(c[0]) + value(c[1]) + value(c[2]);
         int sh = value(h[0]) + value(h[1]) + value(h[2]);
-        
+
         System.out.printf("Cartas do computador: %s, %s, %s (%d)%n", face(c[0]), face(c[1]), face(c[2]), sc );  // mostra a carta
         System.out.printf("   Cartas do jogador: %s, %s, %s (%d)%n", face(h[0]), face(h[1]), face(h[2]), sh );
 
+        
+        // TODO: permitir dobrar o valor da aposta!
         if (sh > 21) {
             System.out.printf("Voce perdeu! Tente de novo! (Acima de 21!)");
+            result = - 100.0;
         } else if (sc > 21) {
             System.out.printf("Voce ganhou! Parabens! (Acima de 21!)");
+            result = 100.0;
         } else if (sh > sc) {
             System.out.printf("Voce ganhou! Parabens!");
+            result = 100.0;
         } else if (sc > sh) {
             System.out.printf("Voce perdeu! Tente de novo!");
+            result = - 100.0;
         } else {
             System.out.printf("Empate! Vamos novamente!");
+            result = 0.0;
         }
+        
+        return result;
     }
-    
+
     public static void main(String[] args)
     {
         Random r;           // gerador de numeros aleatorios
@@ -90,23 +100,32 @@ public class BlackJack
 
         r = new Random();   // cria uma gerador de numeros
 
-        // TODO: criar um valor inicial, repetir enquanto o saldo e positivo
-        // TODO: criar um valor inicial, repetir ateh que o jogador escolha parar
-        // TODO: criar um valor inicial, atribuir valor para vitoria, perda e empate
-
-        c[0] = getCard(r);  
-        h[0] = getCard(r);
+        double balance = 1000.0; // TODO: permitir informar um valor
         
-        c[1] = getCard(r);  
-        h[1] = getCard(r);        
-        // TODO: detectar Blackjack com duas cartas!
+        while (true) {
+            // TODO: criar um valor inicial, repetir enquanto o saldo e positivo
+            System.out.printf("\nSaldo: R$ %.2f\n",  balance);
+            if (balance <= 0) {
+                break;
+            }
+            // TODO: criar um valor inicial, repetir ateh que o jogador escolha parar
+            // TODO: criar um valor inicial, atribuir valor para vitoria, perda e empate
 
-        // TODO: mostrar as cartas de cada jogador, apenas a primeira do computador
-        
-        // TODO: tornar a terceira carta opcional
-        c[2] = getCard(r);  
-        h[2] = getCard(r);        
-            
-        status(c, h);
+            c[0] = getCard(r);  
+            h[0] = getCard(r);
+
+            c[1] = getCard(r);  
+            h[1] = getCard(r);        
+            // TODO: detectar Blackjack com duas cartas!
+
+            // TODO: mostrar as cartas de cada jogador, apenas a primeira do computador
+
+            // TODO: tornar a terceira carta opcional
+            c[2] = getCard(r);  
+            h[2] = getCard(r);        
+
+            balance += status(c, h);
+
+        }
     }
 }
